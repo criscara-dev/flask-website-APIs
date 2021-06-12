@@ -44,6 +44,26 @@ def user_page(name):
 # def other_page(name):
 #     return latinizer(name)
 
+
+@app.route('/validationform') 
+def validationform(): 
+    return render_template('validationform.html')
+
+@app.route('/report') 
+def report():
+    # set vars to False
+    lower = False
+    upper = False
+    num_end = False
+    # get dat from form
+    username = request.args.get('username') 
+    lower = any(char.islower() for char in username)
+    upper = any(char.isupper() for char in username)
+    num_end = username[-1].isnumeric()    
+    report = lower and upper and num_end 
+
+    return render_template('report.html', report=report, lower=lower,upper=upper,num_end=num_end )
+
 if __name__ == '__main__':
     app.run()  
 
