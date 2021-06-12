@@ -1,0 +1,5 @@
+{% extends 'base.html' %} {% block content %}
+<h1>This is the Heroes page</h1>
+<h2>This is the hero page for: {{name|capitalize}}</h2>
+<a href="{{ url_for('static',filename='me-bw.png') }}">here</a>
+{% endblock %}
