@@ -1,0 +1,31 @@
+<!-- <article>
+  {% if planet %}
+  <p>The planet you entered is {{ planet }}</p>
+  <p>Update it in the form below</p>
+  {% else %}
+  <p>Please enter your planet.</p>
+  {% endif %}
+</article>
+
+<div>
+  <form action="" method="POST">
+    {{ form.hidden_tag() }} <br />
+    {{ form.planet.label }} {{ form.planet }} <br />
+    {{ form.submit }}
+    <br />
+  </form>
+</div> -->
+<h1>Welcome to planet suervey</h1>
+
+<div>
+  <form action="" method="POST">
+    {{ form.hidden_tag() }} <br />
+    {{ form.planet.label }} {{ form.planet }} <br />
+    {{ form.far_from_earth.label }} {{ form.far_from_earth }} <br />
+    {{ form.planet_color.label }} {{ form.planet_color }} <br />
+    {{ form.super_hero_power.label }} {{ form.super_hero_power }} <br />
+
+    {{ form.submit }}
+    <br />
+  </form>
+</div>

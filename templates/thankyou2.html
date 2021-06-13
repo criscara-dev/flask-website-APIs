@@ -1,0 +1,24 @@
+{% extends 'base.html' %} {% block content %}
+<div class="jumbotron">
+  <div>
+    {% for m in get_flashed_messages() %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong>{{ m }}</strong>
+    </div>
+    {% endfor %}
+  </div>
+  <h2>Thank you, here is the feedback you gave us:</h2>
+  <article>
+    <ul>
+      <li>Planet: {{ session['planet'] }}</li>
+      <li>Is far from Earth: {{ session['far_from_earth'] }}</li>
+      <li>Planet color: {{ session['planet_color'] }}</li>
+      <li>Your power is: {{ session['super_hero_power'] }}</li>
+    </ul>
+  </article>
+</div>
+
+{% endblock %}

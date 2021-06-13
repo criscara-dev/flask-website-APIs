@@ -1,5 +1,10 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, redirect, url_for, flash
 from latin import latinizer
+from flask_wtf import FlaskForm
+from wtforms import (StringField, SubmitField, BooleanField, 
+                    DateTimeField, RadioField, SelectField)
+from wtforms.validators import DataRequired, Length
+
 
 app = Flask(__name__)
 
@@ -64,6 +69,48 @@ def report():
 
     return render_template('report.html', report=report, lower=lower,upper=upper,num_end=num_end )
 
+#############################
+### USING FLASK WTR FORMS ###
+
+app.config['SECRET_KEY'] = 'form_token_security_key'
+
+
+class InfoForm(FlaskForm):
+    planet = StringField('From which planet are you from?', validators= [DataRequired()])
+    far_from_earth= BooleanField('Is it far fro m Earth?')
+    planet_color = RadioField('What color is your planet?',
+                    choices=[('r','red'),
+                    ('b','blue'),
+                    ('y','yellow')
+                    ])
+    super_hero_power = SelectField(u'What is your seperhero power?',
+    choices=[('strenght','strenght'),
+    ('brain','brain'),
+    ('punch','  punch')
+    ])
+    submit = SubmitField('Submit')  
+
+@app.route('/heroesform', methods=['GET','POST'])
+def heroesform():
+    #  planet = False
+    form = InfoForm()
+
+    if form.validate_on_submit():
+        # planet = form.planet.data
+        # form.planet.data = ''
+        flash('Thank you for submitting the form!')
+        session['planet'] = form.planet.data
+        session['far_from_earth'] = form.far_from_earth.data
+        session['planet_color'] = form.planet_color.data
+        session['super_hero_power'] = form.super_hero_power.data
+        return redirect(url_for('thankyou2'))
+
+    return render_template('heroesform.html', form=form)
+
+@app.route('/thankyou2') 
+def thankyou2(): 
+    return render_template('thankyou2.html')
+
+### run if is the main file: ###
 if __name__ == '__main__':
     app.run()  
-
